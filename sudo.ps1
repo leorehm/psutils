@@ -2,6 +2,12 @@ Set-StrictMode -Off;
 
 if(!$args) { "usage: sudo <cmd...>"; exit 1 }
 
+if($args[0] -eq "!!" -and $args.Length -eq 1) {
+	sudo $(Get-History -Count 1).CommandLine
+	exit 
+}
+
+
 $powershellExe = Get-Process -Id $pid | Select-Object -ExpandProperty Path
 $commandPrefix = ''
 if ($host.Version.Major -gt 5) {

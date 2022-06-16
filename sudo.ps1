@@ -4,6 +4,7 @@ if(!$args) { "usage: sudo <cmd...>"; exit 1 }
 
 if($args[0] -eq "!!" -and $args.Length -eq 1) {
 	$prev = $(Get-History -Count 1).CommandLine
+	if ($prev -eq "sudo !!") { 	[console]::error.writeline("sudo: last command is $prev"); exit 1 }
 	Write-Host "sudo $prev"
 	sudo $prev
 	if (!($LASTEXITCODE -eq 0)) { exit 1 }

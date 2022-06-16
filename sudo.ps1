@@ -3,7 +3,9 @@ Set-StrictMode -Off;
 if(!$args) { "usage: sudo <cmd...>"; exit 1 }
 
 if($args[0] -eq "!!" -and $args.Length -eq 1) {
-	try { sudo $(Get-History -Count 1).CommandLine }
+	$prev = $(Get-History -Count 1).CommandLine
+	Write-Host $prev
+	try { sudo $prev }
 	catch { exit 1 }
 	exit 0
 }
